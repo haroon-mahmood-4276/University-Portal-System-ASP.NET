@@ -1,0 +1,372 @@
+﻿body {
+    font-family: 'Nunito';
+}
+
+/* ********************************************************************************* */
+:root {
+    --UNi-color: #224172;
+}
+
+
+/* Works on Chrome/Edge/Safari */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+
+::-webkit-scrollbar-track-piece:vertical {
+    background: lightgray;
+    /* border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px; */
+}
+
+::-webkit-scrollbar-track-piece:horizontal {
+    background: lightgray;
+    /* border-top-left-radius: 15px;
+    border-top-right-radius: 15px; */
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: #a9a9a9;
+    border-radius: 100px;
+    border: 5px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    /* border: 3px solid lightgray; */
+    background-color: gray;
+}
+
+.btn-UNi {
+    background-color: #224172;
+    color: white;
+    border: 1px solid white;
+}
+
+.btn-UNi:hover {
+    background-color: #182e52;
+    color: white;
+}
+
+.nav-item {
+    border-bottom: 3px solid transparent;
+    border-radius: 3px;
+    padding: 0em .5em;
+    transition: border-bottom 0.2s;
+}
+
+.active,
+header,
+.nav-item:hover {
+    border-bottom: 3px solid var(--UNi-color);
+    padding: 0em .5em;
+    border-radius: 3px;
+}
+
+/* End of Divider */
+
+/* Card */
+.card-animation {
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    transition: 0.2s linear;
+}
+
+.card-animation:hover {
+    -webkit-box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+}
+
+/* End of Card */
+
+table .link a {
+    display: none;
+}
+
+table tr:hover .link a {
+    display: inline-block;
+}
+
+.bg-UNi {
+    background-color: var(--UNi-color);
+    color: white;
+}
+
+.img-round {
+    border-radius: 50%;
+}
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+    background: #ddd;
+    text-decoration: none;
+    color: #555;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: var(--UNi-color);
+    background-color: var(--UNi-color);
+}
+
+.divider {
+    border-top: 1px solid lightgrey;
+    margin: 5px 15px;
+}
+
+.std-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatebottom;
+    animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+
+.input-group-text {
+    background-color: white;
+    color: black;
+}
+
+.blink {
+    -moz-animation: blink normal 3.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation: blink normal 3.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation: blink normal 3.5s infinite ease-in-out;
+    /* IE */
+    animation: blink normal 3.5s infinite ease-in-out;
+    /* Opera and prob css3 final iteration */
+}
+
+/* Firefox old*/
+@-moz-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* IE */
+@-ms-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Opera and prob css3 final iteration */
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ********************************************************************************* */
+.input-group-text {
+    background-color: white;
+    color: black;
+}
+
+.blink {
+    -moz-animation: blink normal 3.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation: blink normal 3.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation: blink normal 3.5s infinite ease-in-out;
+    /* IE */
+    animation: blink normal 3.5s infinite ease-in-out;
+    /* Opera and prob css3 final iteration */
+}
+
+/* Firefox old*/
+@-moz-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* IE */
+@-ms-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Opera and prob css3 final iteration */
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.modal-header,
+.modal-footer {
+    border-radius: 4px;
+}
+
+
+
+.form-control:focus {
+    box-shadow: none;
+}
+/* table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+} */

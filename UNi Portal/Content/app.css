@@ -66,6 +66,10 @@ header,
 
 /* End of Divider */
 
+/*.card{
+    border:0px;
+}*/
+
 /* Card */
 .card-animation {
     border-radius: 10px;

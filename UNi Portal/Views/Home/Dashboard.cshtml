@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container mb-5 text-center">
+    <div class="my-4" style="color: #064473;">
+        @if ( ViewData["AlertData"] != "" )
+        {
+            <div class="my-3">
+                <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                    <strong>@ViewData["AlertHeading"]!</strong> @ViewData["AlertData"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
+        @{
+            ViewData["AlertData"] = "";
+            ViewData["AlertType"] = "";
+            ViewData["AlertHeading"] = "";
+        }
+        <div>
+            <div class="card-deck">
+
+                <div class="card card-animation">
+                    <span class="badge badge-pill badge-primary"
+                          style="position: absolute; background-color: #224172; top: 5px; right: 5px;">
+                        <a href=" #"
+                           id="mySchoolBtn">
+                            <i class="m-1 fas fa-plus" style="color: white" data-target="#myModel"
+                               aria-hidden="true"></i>
+                        </a>
+                    </span>
+
+                    <div class="card-body">
+                        <h2 class='card-title'>@ViewData["SchoolsCount"]</h2>
+                        <p class="card-text">School(s)</p>
+                    </div>
+                </div>
+
+                <div class="card card-animation">
+                    <span class="badge badge-pill badge-primary "
+                          style="position: absolute; background-color: #224172; top: 5px; right: 5px;">
+                        <a href=" #"
+                           id="myProgramBtn">
+                            <i class="m-1 fa fa-plus" style="color: white"
+                               aria-hidden="true"></i>
+                        </a>
+                    </span>
+
+                    <div class="card-body">
+                        <h2 class='card-title'>@ViewData["ProgramsCount"]</h2>
+                        <p class="card-text">Program(s)</p>
+                    </div>
+                </div>
+                <div class="card card-animation">
+                    <a href="teachers" style="text-decoration: none;color: #224172">
+                        <div class="card-body">
+                            <h2 class='card-title'>@ViewData["TeachersCount"]</h2>
+                            <p class="card-text">Faculty Member(s)</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card card-animation">
+                    <a href="students" style="text-decoration: none;color: #224172;">
+                        <div class="card-body">
+                            <h2 class='card-title'>@ViewData["StudentsCount"]</h2>
+                            <p class="card-text">Student(s)</p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="card card-animation">
+                    <div class="card-body">
+                        <h2 class="card-title">1</h2>
+                        <p class="card-text">Online Database(s)</p>
+                    </div>
+                </div>
+
+            </div><br>
+
+            
+        </div>
+    </div>
+</div>

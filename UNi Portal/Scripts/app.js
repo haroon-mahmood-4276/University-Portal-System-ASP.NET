@@ -28,8 +28,6 @@
         GetExams();
     });
 
-    //
-
     function GetPrograms() {
 
         var Data = "";
@@ -171,6 +169,13 @@
         });
     });
 
+
+    $('#inputGroupFile02').on('change', function () {
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
 
     //function ShowSTDMARKS(PID, SID) {
     //    if (PID == 0 && SID == 0) {

@@ -10,32 +10,29 @@
 
 /* Works on Chrome/Edge/Safari */
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 18px;
 }
 
 
 ::-webkit-scrollbar-track-piece:vertical {
     background: lightgray;
-    /* border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px; */
 }
 
 ::-webkit-scrollbar-track-piece:horizontal {
     background: lightgray;
-    /* border-top-left-radius: 15px;
-    border-top-right-radius: 15px; */
 }
 
 
 ::-webkit-scrollbar-thumb {
     background-color: #a9a9a9;
     border-radius: 100px;
-    border: 5px solid lightgray;
+    border: 6px solid lightgray;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     /* border: 3px solid lightgray; */
-    background-color: gray;
+    background-color: #224172;
+    border: 5px solid lightgray;
 }
 
 .btn-UNi {
@@ -47,6 +44,18 @@
 .btn-UNi:hover {
     background-color: #182e52;
     color: white;
+}
+
+.btn-outline-UNi {
+    background-color: transparent;
+    color: #224172;
+    border: 1px solid #224172;
+}
+
+.btn-outline-UNi:hover {
+    background-color: #224172;
+    color: white;
+    border: 1px solid #224172;
 }
 
 .nav-item {
@@ -129,19 +138,6 @@ table tr:hover .link a {
     color: #fff;
     border-color: var(--UNi-color);
     background-color: var(--UNi-color);
-}
-
-.divider {
-    border-top: 1px solid lightgrey;
-    margin: 5px 15px;
-}
-
-.std-container {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
 }
 
 /* Add animation to "page content" */
@@ -366,11 +362,6 @@ table tr:hover .link a {
     border-radius: 4px;
 }
 
-
-
-.form-control:focus {
-    box-shadow: none;
-}
 /* table tr:first-child th:last-child {
     border-top-right-radius: 10px;
 } */

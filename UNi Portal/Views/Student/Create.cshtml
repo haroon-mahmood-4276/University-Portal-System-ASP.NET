@@ -1,0 +1,161 @@
+﻿@model UNi_Portal.Models.StudentModel
+@using System.Data;
+@{
+    ViewBag.Title = "Create Student Record";
+}
+
+<div>
+    <div class="container my-4">
+        @if ( !ViewData.ModelState.IsValid )
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>
+                    @Html.ValidationSummary( false )
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </strong>
+            </div>
+        }
+
+        @if ( ViewData["AlertData"] != "" )
+        {
+            <div class="my-3">
+                <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                    <strong>@ViewData["AlertHeading"]!</strong> @ViewData["AlertData"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
+        @{
+            ViewData["AlertData"] = "";
+            ViewData["AlertType"] = "";
+            ViewData["AlertHeading"] = "";
+        }
+        <div class="card card-animation">
+            <div class="card-header bg-UNi">
+                <h4 class="modal-title float-left">Add Racks</h4>
+                <a href="@Url.Action( "Index", "Student" )" class="btn btn-danger float-right">Back to Student List</a>
+            </div>
+
+            @using ( Html.BeginForm( "Create", "Student", FormMethod.Post ) )
+            {
+                <div class="card-body">
+                    <div class="card card-animation my-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Login Credentials</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_RollNo, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_RollNo, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_RollNo ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_RollNo, "", new { @class = "text-danger" } )
+                                </div>
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_Password, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_Password, new { @type = "password", @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_Password ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_Password, "", new { @class = "text-danger" } )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-animation my-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Personal Information</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_FirstName, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_FirstName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_FirstName ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_FirstName, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_LastName, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_LastName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_LastName ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_LastName, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_Email, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_Email, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_Email ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_Email, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_PhoneNo, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_PhoneNo, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_PhoneNo ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_PhoneNo, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_CNIC, new { @class = "control-label" } )
+                                    @Html.TextBoxFor( model => model.STD_CNIC, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_CNIC ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_CNIC, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_CCCntryCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbCountries"], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_CCCntryCode ) } )
+                                    @Html.ValidationMessageFor( model => model.STD_CCCntryCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_CCCityCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_CCCityCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.STD_CCCityCode, "", new { @class = "text-danger" } )
+                                </div>
+
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_SCLSchoolCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbSchools"], "Value", "Text", "0" ), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.STD_SCLSchoolCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_PRGPCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.STD_PRGPCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_PRGSCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.STD_PRGSCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-12 mb-3 form-group">
+                                    @Html.LabelFor( model => model.STD_CrntSemester, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.STD_CrntSemester, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.STD_CrntSemester, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-12 mb-3 form-group">
+                                    <label for="txtAddress">Address</label>
+                                    <textarea class="form-control" id="txtAddress" name="txtAddress"
+                                              placeholder="Address" rows="4" maxlength="150" required></textarea>
+                                    @Html.ValidationMessageFor( model => model.STD_Password, "", new { @class = "text-danger" } )
+                                </div>
+
+
+                                <div class="col-md-12 my-3 form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-UNi text-right">
+                    <input type="submit" class="btn btn-UNi" name="submit" value="Save" />
+                    <input type="reset" class="btn btn-danger" name="submit" value="Reset" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

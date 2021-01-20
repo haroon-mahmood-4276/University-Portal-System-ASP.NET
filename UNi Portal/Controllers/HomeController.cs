@@ -54,7 +54,7 @@ namespace UNi_Portal.Controllers
             }
             else
                 ViewData["AlertData"] = "Email or Password is incorrect.";
-            return Redirect( "admin/login" );
+            return View();
         }
 
         [Route( "admin/dashboard" )]

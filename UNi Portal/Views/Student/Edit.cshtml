@@ -1,0 +1,155 @@
+﻿@model UNi_Portal.Models.StudentModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>StudentModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_RollNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_RollNo)
+                @Html.ValidationMessageFor(model => model.STD_RollNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_Password)
+                @Html.ValidationMessageFor(model => model.STD_Password)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_FirstName)
+                @Html.ValidationMessageFor(model => model.STD_FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_LastName)
+                @Html.ValidationMessageFor(model => model.STD_LastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_CNIC, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_CNIC)
+                @Html.ValidationMessageFor(model => model.STD_CNIC)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_Address)
+                @Html.ValidationMessageFor(model => model.STD_Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_SCLSchoolCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_SCLSchoolCode)
+                @Html.ValidationMessageFor(model => model.STD_SCLSchoolCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_PRGPCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_PRGPCode)
+                @Html.ValidationMessageFor(model => model.STD_PRGPCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_PRGSCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_PRGSCode)
+                @Html.ValidationMessageFor(model => model.STD_PRGSCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_CrntSemester, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_CrntSemester)
+                @Html.ValidationMessageFor(model => model.STD_CrntSemester)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_PhoneNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_PhoneNo)
+                @Html.ValidationMessageFor(model => model.STD_PhoneNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_Email)
+                @Html.ValidationMessageFor(model => model.STD_Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_Gender, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_Gender)
+                @Html.ValidationMessageFor(model => model.STD_Gender)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_CCCityCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_CCCityCode)
+                @Html.ValidationMessageFor(model => model.STD_CCCityCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_CCCntryCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_CCCntryCode)
+                @Html.ValidationMessageFor(model => model.STD_CCCntryCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STD_Picture, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STD_Picture)
+                @Html.ValidationMessageFor(model => model.STD_Picture)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

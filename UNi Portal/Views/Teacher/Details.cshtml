@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+}
+
+<h2>Details</h2>
+

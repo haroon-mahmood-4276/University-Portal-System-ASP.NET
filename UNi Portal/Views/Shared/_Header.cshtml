@@ -1,15 +1,18 @@
-﻿<header class="container">
+﻿@using Newtonsoft.Json.Linq
+@{
+    dynamic Login = "";
+    if ( Request.Cookies[ "Login" ] != null )
+    {
+        Login = JObject.Parse( Request.Cookies[ "Login" ].Value );
+    }
+}
 
+<header class="container">
     <nav class="navbar navbar-expand-md navbar-light bg-white">
-
-
         <a class="navbar-brand" href="#">
             <img src="~/images/Logo-2.png" width="70" height="57" class="d-inline-block align-top"
                  alt="UNi Logo">
         </a>
-
-
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fas fa-caret-down fa-lg" style="color: #224172;"></span>
@@ -17,57 +20,58 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <!-- Links -->
             <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item mx-1 {{ Request::is('admin/dashboard') ? 'active' : null }}">
-                    <a class="nav-link" href="{{ url('/admin/dashboard') }}">
-                        <span style="color: #224172;">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item mx-1 {{ Request::is('admin/students') ? 'active' : null }}">
-                    <a class="nav-link" href="{{ url('/admin/students') }}">
-                        <span style="color: #224172;">Student List</span>
-                    </a>
-                </li>
-                <li class="nav-item mx-1 {{ Request::is('admin/teachers') ? 'active' : null }}">
-                    <a class="nav-link" href="{{ url('/admin/teachers') }}">
-                        <span style="color: #224172;">Staff List</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#"><span style="color: #224172;">About Us</span></a>
-                </li>
+                @if ( Request.Cookies[ "Login" ] != null && Login.Role == "Admin" )
+                {
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/admin/dashboard" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action( "Dashboard", "Home" )">
+                            <span style="color: #224172;">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/student" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action( "Index", "Student" )">
+                            <span style="color: #224172;">Students List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/teacher" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action( "Index", "Teacher" )">
+                            <span style="color: #224172;">Teachers List</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="#"><span style="color: #224172;">About Us</span></a>
+                    </li>
+                }
 
             </ul>
 
 
-
-            <div class="dropdown">
-                <a href="" class="nav-link icon-no-margin" data-toggle="dropdown" role="button">
-                    <span class="avatar current">
-                        <span class="fas fa-user-graduate fa-2x mr-2 "
-                              style="color: #224172;" />
-                    </span>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-right text-center menu"
-                     style="border: 1px solid #224172; padding: 5px;" id="action-menu-1-menu">
-                    <a target="_blank" href="{{ asset('images/Logo-2.png') }}">
-                        <img src="{{ asset('images/Logo-2.png') }}" class="mb-3" style="width:50%;">
-                    </a>
-                    <p class="text-muted"> {{ strtoupper(Session('Data')->ID) }} </p>
-                    <p class="text-muted">
-                        {{ Session('Data')->FirstName . ' ' . Session('Data')->LastName }}
-                    </p>
-
-                    <a href="/admin/logout" class="btn btn-UNi" style="color: white;">
-                        <i class="fas fa-power-off"></i>
+            @if ( Request.Cookies[ "Login" ] != null )
+            {
+                <div class="dropdown">
+                    <a href="" class="nav-link icon-no-margin" data-toggle="dropdown" role="button">
+                        <span class="avatar current">
+                            <span class="fas fa-user-graduate fa-2x mr-2 "
+                                  style="color: #224172;" />
+                        </span>
                     </a>
 
+                    <div class="dropdown-menu dropdown-menu-right text-center menu"
+                         style="border: 1px solid #224172; padding: 5px;" id="action-menu-1-menu">
+                        <a target="_blank" href="~/images/Logo-2.png">
+                            <img src="~/images/Logo-2.png" class="mb-3" style="width:50%;">
+                        </a>
+                        <p class="text-muted">@Login.ID</p>
+                        <p class="text-muted">@Login.FirstName @Login.LastName</p>
 
+                        <a href="@Url.Action("Logout","Home")" class="btn btn-UNi" style="color: white;">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
+            }
         </div>
     </nav>
 </header>

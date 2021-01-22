@@ -12,7 +12,9 @@ namespace UNi_Portal.Controllers
     {
         private static SqlConnection _SqlConnection = new SqlConnection( "Data Source=.; Initial Catalog=UNi Portal DB; Persist Security Info=True; User ID=haroon; Password=haroontech2299" );
 
-        public static string DBID = "";
+        public static string ID = "";
+        public static string FirstNmae = "";
+        public static string LastName = "";
         
         //For Select Data
         public static string DBFilDTable( ref DataTable nDTable, string SQLQuery )

@@ -1,6 +1,10 @@
 ﻿@using System.Data;
 @{
     ViewBag.Title = "Students";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
     int SrNo = 1;
 }
 

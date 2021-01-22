@@ -1,0 +1,156 @@
+﻿@model UNi_Portal.Models.TeacherModel
+@using System.Data;
+@{
+    ViewBag.Title = "Edit Student Record";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+}
+
+<div>
+    <div class="container my-4">
+        @if ( !ViewData.ModelState.IsValid )
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>
+                    @Html.ValidationSummary( false )
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </strong>
+            </div>
+        }
+
+        @if ( ViewData["AlertData"] != "" )
+        {
+            <div class="my-3">
+                <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                    <strong>@ViewData["AlertHeading"]!</strong> @ViewData["AlertData"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
+        @{
+            ViewData["AlertData"] = "";
+            ViewData["AlertType"] = "";
+            ViewData["AlertHeading"] = "";
+        }
+        <div class="card card-animation">
+            <div class="card-header bg-UNi">
+                <h4 class="modal-title float-left">Edit Teacher Record</h4>
+                <a href="@Url.Action( "Index", "Teacher" )" class="btn btn-danger float-right">Back to Teachers List</a>
+            </div>
+
+            @using ( Html.BeginForm( "Edit", "Teacher", new { id = Html.DisplayFor( model => model.TCHR_ID ) }, FormMethod.Post ) )
+            {
+                <div class="card-body">
+                    <div class="card card-animation my-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Login Credentials</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_ID, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_ID, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_ID ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_ID, "", new { @class = "text-danger" } )
+                                </div>
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_Password, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_Password, new { @type = "password", @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_Password ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_Password, "", new { @class = "text-danger" } )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-animation my-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Personal Information</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_FirstName, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_FirstName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_FirstName ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_FirstName, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_LastName, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_LastName, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_LastName ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_LastName, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_Email, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_Email, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_Email ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_Email, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_PhoneNo, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_PhoneNo, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_PhoneNo ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_PhoneNo, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_CNIC, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_CNIC, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_CNIC ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_CNIC, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_CCCntryCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.TCHR_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbCountries"], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_CCCntryCode ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_CCCntryCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_CCCityCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.TCHR_CCCityCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_CCCityCode, "", new { @class = "text-danger" } )
+                                </div>
+
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_SCLSchoolCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.TCHR_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbSchools"], "Value", "Text", "0" ), "Select", new { @class = "form-control", @value = "01" } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_SCLSchoolCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_PRGPCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.TCHR_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_PRGPCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-6 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_PRGSCode, new { @class = "control-label" } )
+                                    @Html.DropDownListFor( model => model.TCHR_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_PRGSCode, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-12 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_Post, new { @class = "control-label" } )
+                                    @Html.EditorFor( model => model.TCHR_Post, new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_Post ) } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_Post, "", new { @class = "text-danger" } )
+                                </div>
+
+                                <div class="col-md-12 mb-3 form-group">
+                                    @Html.LabelFor( model => model.TCHR_Address, new { @class = "control-label" } )
+                                    @Html.TextAreaFor( model => model.TCHR_Address, new { @class = "form-control", @placeholder = "Objective", @rows = "3" } )
+                                    @Html.ValidationMessageFor( model => model.TCHR_Address, "", new { @class = "form-text text-danger" } )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-UNi text-right">
+                    <input type="submit" class="btn btn-UNi" name="submit" value="Save" />
+                    <input type="reset" class="btn btn-danger" name="submit" value="Reset" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model UNi_Portal.Models.LoginModel
+@{
+    ViewBag.Title = "Teacher Login";
+}
+
+<div>
+    <div class="container col-lg-5 my-5 py-3" style=" background-color: #224172; color: white; border-radius:  10px;">
+
+        @if ( !ViewData.ModelState.IsValid )
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>
+                    @Html.ValidationSummary()
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </strong>
+            </div>
+        }
+
+        @if ( ViewData[ "AlertData" ] != "" )
+        {
+            <div class="my-3">
+                <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                    <strong>@ViewData[ "AlertHeading" ]!</strong> @ViewData[ "AlertData" ]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        }
+        @{
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "";
+            ViewData[ "AlertHeading" ] = "";
+        }
+
+        @using ( Html.BeginForm( "AdminLogin", "Home" ) )
+        {
+            <div class="form-group">
+                @Html.LabelFor( model => model.txtUserID, new { @class = "control-label" } )
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor( model => model.txtUserID, new { @class = "form-control", @placeholder = Html.DisplayNameFor( model => model.txtUserID ) } )
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon">@@uni.edu.pk</span>
+                    </div>
+                    @Html.ValidationMessageFor( model => model.txtUserID, "", new { @class = "text-danger" } )
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor( model => model.txtPassword, new { @class = "control-label" } )
+                @Html.TextBoxFor( model => model.txtPassword, new { @type = "password", @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.txtPassword ) } )
+                @Html.ValidationMessageFor( model => model.txtPassword, "", new { @class = "text-danger" } )
+            </div>
+            <div class="form-actions">
+                <button type="submit" name="submit" class="btn btn-UNi" id="btnLogin">
+                    <i class="fas fa-sign-in-alt"
+                       style="color: white;"></i>
+                </button>
+            </div>
+        }
+    </div>
+
+
+    <div class="container blink" style="margin-top: 10vh;">
+        <img class="img-fluid" src="~/images/Brand-1.png" alt="Brand Logo">
+    </div>
+</div>
+
+

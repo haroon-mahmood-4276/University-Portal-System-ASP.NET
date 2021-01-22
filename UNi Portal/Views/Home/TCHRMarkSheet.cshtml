@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewBag.Title = "Marks Sheet"; 
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+}

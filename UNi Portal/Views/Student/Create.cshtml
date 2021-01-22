@@ -2,6 +2,10 @@
 @using System.Data;
 @{
     ViewBag.Title = "Create Student Record";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
 }
 
 <div>
@@ -36,7 +40,7 @@
         }
         <div class="card card-animation">
             <div class="card-header bg-UNi">
-                <h4 class="modal-title float-left">Add Racks</h4>
+                <h4 class="modal-title float-left">Add Student Record</h4>
                 <a href="@Url.Action( "Index", "Student" )" class="btn btn-danger float-right">Back to Student List</a>
             </div>
 
@@ -133,18 +137,9 @@
                                 </div>
 
                                 <div class="col-md-12 mb-3 form-group">
-                                    <label for="txtAddress">Address</label>
-                                    <textarea class="form-control" id="txtAddress" name="txtAddress"
-                                              placeholder="Address" rows="4" maxlength="150" required></textarea>
-                                    @Html.ValidationMessageFor( model => model.STD_Password, "", new { @class = "text-danger" } )
-                                </div>
-
-
-                                <div class="col-md-12 my-3 form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                    @Html.LabelFor( model => model.STD_Address, new { @class = "control-label" } )
+                                    @Html.TextAreaFor( model => model.STD_Address, new { @class = "form-control", @placeholder = "Objective", @rows = "3" } )
+                                    @Html.ValidationMessageFor( model => model.STD_Address, "", new { @class = "form-text text-danger" } )
                                 </div>
                             </div>
                         </div>

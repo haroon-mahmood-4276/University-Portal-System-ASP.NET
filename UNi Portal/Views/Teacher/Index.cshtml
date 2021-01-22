@@ -1,0 +1,73 @@
+﻿@using System.Data;
+@{
+    ViewBag.Title = "Teachers";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+    int SrNo = 1;
+}
+
+<div class="container my-4 text-center">
+
+    @if ( ViewData[ "AlertData" ] != "" )
+    {
+        <div class="my-3">
+            <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                <strong>@ViewData[ "AlertHeading" ]!</strong> @ViewData[ "AlertData" ]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    }
+    @{
+        ViewData[ "AlertData" ] = "";
+        ViewData[ "AlertType" ] = "";
+        ViewData[ "AlertHeading" ] = "";
+    }
+
+    <div class="table-responsive-md">
+        <table class="table table-hover">
+            <thead>
+                <tr class="bg-UNi">
+                    <th class="align-middle" scope="col">#</th>
+                    <th class="align-middle" scope="col">User ID</th>
+                    <th class="align-middle" scope="col">Full Name</th>
+                    <th class="align-middle" scope="col">Program</th>
+                    <th class="align-middle" scope="col">School</th>
+                    <th class="align-middle" scope="col">Post</th>
+                    <th class="align-middle text-center" scope="col" style="width: 10%;">
+                        <a href="@Url.Action( "Create", "Teacher" )" class="btn"><i class="fas fa-plus" style="color: white" aria-hidden="true"></i></a>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="myTable">
+                @if ( ( ViewData[ "Teachers" ] as DataTable ) != null )
+                {
+                    foreach ( DataRow dtRow in ( ViewData[ "Teachers" ] as DataTable ).Rows )
+                    {
+                        <tr>
+                            <td class="align-middle">@SrNo @{SrNo++;}</td>
+                            <td class="align-middle">@dtRow[ "TCHR_ID" ].ToString().ToUpper()</td>
+                            <td class="align-middle">@dtRow[ "TCHR_FirstName" ].ToString() @dtRow[ "TCHR_LastName" ].ToString()</td>
+                            <td class="align-middle">@dtRow[ "PRG_ProgramName" ].ToString() ( @dtRow[ "PRG_SectionName" ].ToString() )</td>
+                            <td class="align-middle">@dtRow[ "TCHR_SchoolName" ].ToString() ( @dtRow[ "TCHR_SchoolAbb" ].ToString() )</td>
+                            <td class="align-middle">@dtRow[ "TCHR_Post" ].ToString()</td>
+                            <td class="align-middle">
+                                <a href="@Url.Action( "Edit", "Student", new { id = @dtRow["TCHR_PKID"].ToString() } )" class="btn btn-outline-UNi float-left"><i class="fas fa-i-cursor"></i></a>
+                                @using ( Html.BeginForm( "Delete", "Student", FormMethod.Post ) )
+                                {
+                                    @Html.HttpMethodOverride( HttpVerbs.Delete )
+                                    <input type="hidden" name="PKID" value="@dtRow["TCHR_PKID"].ToString()" />
+                                    <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -77,8 +77,8 @@ namespace UNi_Portal.Models
         public string STD_Email { get; set; }
 
 
-        [Display( Name = "Section" )]
-        [Required( ErrorMessage = "Section is required." )]
+        [Display( Name = "Gender" )]
+        [Required( ErrorMessage = "Gender is required." )]
         public string STD_Gender { get; set; }
 
         
@@ -91,11 +91,7 @@ namespace UNi_Portal.Models
         [Required( ErrorMessage = "Country is required." )]
         public string STD_CCCntryCode { get; set; }
 
-
-        [Display( Name = "Picture" )]
-        //[Required( ErrorMessage = "Country is required." )]
-        [MaxLength( 150 )]
-        public string STD_Picture { get; set; }
+        public string PKID { get; set; }
 
     }
 }

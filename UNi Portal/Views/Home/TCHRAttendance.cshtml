@@ -1,16 +1,11 @@
 ﻿@model UNi_Portal.Models.FilterModel
 @using System.Data
 @{
-    ViewBag.Title = "Marks Sheet";
+    ViewBag.Title = "Attendance Sheet";
     if ( ( Request.Cookies[ "Login" ] == null ) )
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
     }
-
-    List<SelectListItem> ExamTypes = new List<SelectListItem>();
-    ExamTypes.Add( new SelectListItem { Text = "Quiz", Value = "Quiz" } );
-    ExamTypes.Add( new SelectListItem { Text = "Mids", Value = "Mids" } );
-
 }
 
 <div class="container my-3">
@@ -41,7 +36,7 @@
         ViewData[ "AlertType" ] = "";
         ViewData[ "AlertHeading" ] = "";
     }
-    @using ( Html.BeginForm( "TCHRMarkSheet", "Home", FormMethod.Post ) )
+    @using ( Html.BeginForm( "TCHRAttendance", "Home", FormMethod.Post ) )
     {
         <div class="row">
             <div class="col-lg-4 py-3">
@@ -70,20 +65,20 @@
                 @Html.ValidationMessageFor( model => model.ClassDate, "", new { @class = "form-text text-danger" } )
             </div>
             <div class="col-lg-4  py-3">
-                @Html.LabelFor( model => model.ExamType, new { @class = "control-label" } )
-                @Html.DropDownListFor( model => model.ExamType, ExamTypes, "Select", new { @class = "form-control" } )
-                @Html.ValidationMessageFor( model => model.ExamType, "", new { @class = "text-danger" } )
+                @Html.LabelFor( model => model.StartTime, new { @class = "control-label" } )
+                @Html.TextBoxFor( model => model.StartTime, new { type = "time", @class = "form-control" } )
+                @Html.ValidationMessageFor( model => model.StartTime, "", new { @class = "form-text text-danger" } )
             </div>
             <div class="col-lg-4 py-3">
-                @Html.LabelFor( model => model.TotalMarks, new { @class = "control-label" } )
-                @Html.TextBoxFor( model => model.TotalMarks, new { @type = "number", @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TotalMarks ), @value = 0, @min = 0 } )
-                @Html.ValidationMessageFor( model => model.TotalMarks, "", new { @class = "text-danger" } )
+                @Html.LabelFor( model => model.EndTime, new { @class = "control-label" } )
+                @Html.TextBoxFor( model => model.EndTime, new { type = "time", @class = "form-control" } )
+                @Html.ValidationMessageFor( model => model.EndTime, "", new { @class = "form-text text-danger" } )
             </div>
 
         </div>
 
         <div class="float-right mb-2">
-            <button class="btn btn-UNi btn-md" id="createMarksSheet" type="button">Create Marks Sheet</button>
+            <button class="btn btn-UNi btn-md" id="createAttendance" type="button">Create Marks Sheet</button>
             <button class="btn btn-danger btn-md" type="reset" id="resetMarksSheet">Refresh</button>
         </div>
 
@@ -96,15 +91,13 @@
                         <th scope="col">Full Name</th>
                         <th scope="col">Program</th>
                         <th scope="col">School</th>
-                        <th scope="col" class="text-center">Obtained Marks</th>
+                        <th scope="col" class="text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
             </table>
         </div>
 
-        <button class="btn btn-UNi btn-md btn-block" type="submit">Save Lecture</button>
+        <button class="btn btn-UNi btn-md btn-block" type="submit">Save Attendance</button>
     }
 </div>
-
-@*style="width: 15%;"*@

@@ -10,11 +10,11 @@
 
 <div class="container my-4 text-center">
 
-    @if ( ViewData["AlertData"] != "" )
+    @if ( ViewData[ "AlertData" ] != "" )
     {
         <div class="my-3">
             <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
-                <strong>@ViewData["AlertHeading"]!</strong> @ViewData["AlertData"]
+                <strong>@ViewData[ "AlertHeading" ]!</strong> @ViewData[ "AlertData" ]
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,9 +22,9 @@
         </div>
     }
     @{
-        ViewData["AlertData"] = "";
-        ViewData["AlertType"] = "";
-        ViewData["AlertHeading"] = "";
+        ViewData[ "AlertData" ] = "";
+        ViewData[ "AlertType" ] = "";
+        ViewData[ "AlertHeading" ] = "";
     }
 
 
@@ -47,17 +47,17 @@
             </thead>
 
             <tbody id="myTable">
-                @if ( ( ViewData["Students"] as DataTable ) != null )
+                @if ( ( ViewData[ "Students" ] as DataTable ) != null )
                 {
-                    foreach ( DataRow dtRow in ( ViewData["Students"] as DataTable ).Rows )
+                    foreach ( DataRow dtRow in ( ViewData[ "Students" ] as DataTable ).Rows )
                     {
                         <tr>
                             <td class="align-middle">@SrNo @{SrNo++;}</td>
-                            <td class="align-middle">@dtRow["STD_RollNo"].ToString().ToUpper()</td>
-                            <td class="align-middle">@dtRow["STD_FirstName"].ToString() @dtRow["STD_LastName"].ToString()</td>
-                            <td class="align-middle">@dtRow["PRG_ProgramName"].ToString() ( @dtRow["PRG_SectionName"].ToString() )</td>
-                            <td class="align-middle">@dtRow["SCL_SchoolName"].ToString() ( @dtRow["SCL_SchoolAbb"].ToString() )</td>
-                            <td class="align-middle">@dtRow["STD_CrntSemester"].ToString()</td>
+                            <td class="align-middle">@dtRow[ "STD_RollNo" ].ToString().ToUpper()</td>
+                            <td class="align-middle">@dtRow[ "STD_FirstName" ].ToString() @dtRow[ "STD_LastName" ].ToString()</td>
+                            <td class="align-middle">@dtRow[ "PRG_ProgramName" ].ToString() ( @dtRow[ "PRG_SectionName" ].ToString() )</td>
+                            <td class="align-middle">@dtRow[ "SCL_SchoolName" ].ToString() ( @dtRow[ "SCL_SchoolAbb" ].ToString() )</td>
+                            <td class="align-middle">@dtRow[ "STD_CrntSemester" ].ToString()</td>
                             <td class="align-middle">
                                 <a href="@Url.Action( "Edit", "Student", new { id = @dtRow["STD_PKID"].ToString() } )" class="btn btn-outline-UNi float-left"><i class="fas fa-i-cursor"></i></a>
                                 @using ( Html.BeginForm( "Delete", "Student", FormMethod.Post ) )

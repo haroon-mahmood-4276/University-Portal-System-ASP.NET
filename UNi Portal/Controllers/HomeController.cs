@@ -203,18 +203,119 @@ namespace UNi_Portal.Controllers
         }
 
         [Route( "teacher/marks" )]
-        public ActionResult TCHRMarkSheet( )
+        public ActionResult TCHRMarkSheet()
         {
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+            Query = @"SELECT SCL_SchoolCode, SCL_SchoolName FROM UPS_Schools ORDER BY SCL_SchoolName";
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            if ( ReturnValue == "Y" )
+            {
+                List<SelectListItem> cbSchools = new List<SelectListItem>();
+                foreach ( DataRow dtRow in FormDataTable.Rows )
+                {
+                    cbSchools.Add( new SelectListItem { Value = dtRow[ "SCL_SchoolCode" ].ToString(), Text = dtRow[ "SCL_SchoolName" ].ToString() } );
+                }
+                ViewData[ "cbSchools" ] = cbSchools;
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
             return View();
         }
 
+        [HttpPost]
         [Route( "teacher/marks" )]
-        public ActionResult TCHRMarkSheet( FilterModel Model )
+        public ActionResult TCHRMarkSheet( FormCollection Collection, FilterModel Model )
         {
-            return View();
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+
+            Query = @"SELECT STD_RollNo FROM UPS_Students WHERE (STD_PRGPCode = '" + Model.PRG_PCode + "') AND (STD_PRGSCode = '" + Model.PRG_SCode + "') AND (STD_SCLSchoolCode = '" + Model.PRG_SCLSchoolCode + "') ORDER BY STD_RollNo";
+
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            if ( ReturnValue == "Y" )
+            {
+                for ( int i = 0; i < FormDataTable.Rows.Count; i++ )
+                {
+                    Query = @"INSERT INTO UPS_STDMarks  (                           SM_STDRollNo,                       SM_ExamName,             SM_SubjectName,            STD_SCLSchoolCode,             SM_PRGPCode,              SM_PRGSCode,                    SM_Date,                       SM_TotalMarks,                             SM_ObtainedMarks)
+                        VALUES                  ('" + FormDataTable.Rows[ i ][ "STD_RollNo" ].ToString() + "','" + Model.ExamType + "','" + Model.Subject + "','" + Model.PRG_SCLSchoolCode + "','" + Model.PRG_PCode + "','" + Model.PRG_SCode + "','" + Model.ClassDate.ToString() + "','" + Model.TotalMarks + "','" + Collection[ FormDataTable.Rows[ i ][ "STD_RollNo" ].ToString() + "OM" ] + "')";
+                    ReturnValue = DBQueries.DB_ExecuteNonQuery( Query );
+                }
+                if ( ReturnValue == "Y" )
+                {
+                    ViewData[ "AlertType" ] = "Success";
+                    ViewData[ "AlertHeading" ] = "Info";
+                    ViewData[ "AlertData" ] = "Marks Sheet Saved.";
+                }
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+            return RedirectToAction( "TCHRMarkSheet" );
         }
 
 
+        [Route( "teacher/attendance" )]
+        public ActionResult TCHRAttendance()
+        {
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+            Query = @"SELECT SCL_SchoolCode, SCL_SchoolName FROM UPS_Schools ORDER BY SCL_SchoolName";
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            if ( ReturnValue == "Y" )
+            {
+                List<SelectListItem> cbSchools = new List<SelectListItem>();
+                foreach ( DataRow dtRow in FormDataTable.Rows )
+                {
+                    cbSchools.Add( new SelectListItem { Value = dtRow[ "SCL_SchoolCode" ].ToString(), Text = dtRow[ "SCL_SchoolName" ].ToString() } );
+                }
+                ViewData[ "cbSchools" ] = cbSchools;
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [Route( "teacher/attendance" )]
+        public ActionResult TCHRAttendance( FormCollection Collection, FilterModel Model )
+        {
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+
+            Query = @"SELECT STD_RollNo FROM UPS_Students WHERE (STD_PRGPCode = '" + Model.PRG_PCode + "') AND (STD_PRGSCode = '" + Model.PRG_SCode + "') AND (STD_SCLSchoolCode = '" + Model.PRG_SCLSchoolCode + "') ORDER BY STD_RollNo";
+
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            if ( ReturnValue == "Y" )
+            {
+                for ( int i = 0; i < FormDataTable.Rows.Count; i++ )
+                {
+                    Query = @"INSERT INTO UPS_STDAttendance  (                SA_STDRollNo,                           SA_SubjectName,            SA_SCLSchoolCode,             SA_PRGPCode,              SA_PRGSCode,                    SA_Date,                       SA_StartTime,                             SA_EndTime,                                               SA_Status)
+                        VALUES                  ('" + FormDataTable.Rows[ i ][ "STD_RollNo" ].ToString() + "','" + Model.Subject + "','" + Model.PRG_SCLSchoolCode + "','" + Model.PRG_PCode + "','" + Model.PRG_SCode + "','" + Model.ClassDate.ToString() + "','" + Model.StartTime + "',             '" + Model.EndTime + "','" + ( ( Collection[ FormDataTable.Rows[ i ][ "STD_RollNo" ].ToString() + "Chk" ] ) == "on" ? "Y" : "N" ) + "')";
+                    ReturnValue = DBQueries.DB_ExecuteNonQuery( Query );
+                }
+                if ( ReturnValue == "Y" )
+                {
+                    ViewData[ "AlertType" ] = "Success";
+                    ViewData[ "AlertHeading" ] = "Info";
+                    ViewData[ "AlertData" ] = "Marks Sheet Saved.";
+                }
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+            return RedirectToAction( "TCHRAttendance" );
+        }
 
         [Route( "logout" )]
         public ActionResult Logout()

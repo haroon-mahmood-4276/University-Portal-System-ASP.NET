@@ -1,105 +1,89 @@
 ﻿$(document).ready(function () {
 
-    $("#mySTDBtn").click(function () {
-        $("#mySTDModal").modal();
-        GetCountries();
-        GetSchools();
-    });
+    //$("#cbProgram").ready(function () {
+    //    GetPrograms();
+    //});
 
-    $("#myTCHRBtn").click(function () {
-        $("#myTCHRModal").modal();
-        GetCountries();
-        GetSchools();
-    });
+    //$("#cbExamType").ready(function () {
+    //    GetExams();
+    //});
 
-    $("#myProgramBtn").click(function () {
-        $("#myProgramModal").modal();
-    });
+    //function somemethod() {
+    //    console.log("here");
+    //}
 
-    $("#mySchoolBtn").click(function () {
-        $("#mySchoolModal").modal();
-    });
+    //function GetPrograms() {
 
-    $("#cbProgram").ready(function () {
-        GetPrograms();
-    });
+    //    var Data = "";
 
-    $("#cbExamType").ready(function () {
-        GetExams();
-    });
+    //    $.ajax({
+    //        type: "get",
+    //        url: '/api/programs',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            Data += '<option value="000" selected>Select</option>';
+    //            for (let index = 0; index < response.length; index++) {
+    //                Data += '<option value="' + response[index].PRG_PCode + '">' + response[index].PRG_ProgramName + '</option>';
+    //            }
+    //            $('#cbProgram').html(Data);
+    //        }
+    //    });
+    //};
 
-    function GetPrograms() {
+    //function GetExams() {
 
-        var Data = "";
+    //    var Data = "";
 
-        $.ajax({
-            type: "get",
-            url: '/api/programs',
-            dataType: 'json',
-            success: function (response) {
-                Data += '<option value="000" selected>Select</option>';
-                for (let index = 0; index < response.length; index++) {
-                    Data += '<option value="' + response[index].PRG_PCode + '">' + response[index].PRG_ProgramName + '</option>';
-                }
-                $('#cbProgram').html(Data);
-            }
-        });
-    };
-
-    function GetExams() {
-
-        var Data = "";
-
-        $.ajax({
-            type: "get",
-            url: '/api/exams',
-            dataType: 'json',
-            success: function (response) {
-                Data += '<option value="00" selected>Select</option>';
-                for (let index = 0; index < response.length; index++) {
-                    Data += '<option value="' + response[index].EXAM_ID + '">' + response[index].EXAM_Name + '</option>';
-                }
-                $('#cbExamType').html(Data);
-            }
-        });
-    };
+    //    $.ajax({
+    //        type: "get",
+    //        url: '/api/exams',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            Data += '<option value="00" selected>Select</option>';
+    //            for (let index = 0; index < response.length; index++) {
+    //                Data += '<option value="' + response[index].EXAM_ID + '">' + response[index].EXAM_Name + '</option>';
+    //            }
+    //            $('#cbExamType').html(Data);
+    //        }
+    //    });
+    //};
 
 
-    function GetCountries() {
+    //function GetCountries() {
 
-        var Data = "";
+    //    var Data = "";
 
-        $.ajax({
-            type: "get",
-            url: '/api/countries',
-            dataType: 'json',
-            success: function (response) {
-                Data += '<option value="000" selected>Select</option>';
-                for (let index = 0; index < response.length; index++) {
-                    Data += '<option value="' + response[index].CC_CntryCode + '">' + response[index].CC_CntryName + '</option>';
-                }
-                $('#cbCountry').html(Data);
-            }
-        });
-    };
+    //    $.ajax({
+    //        type: "get",
+    //        url: '/api/countries',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            Data += '<option value="000" selected>Select</option>';
+    //            for (let index = 0; index < response.length; index++) {
+    //                Data += '<option value="' + response[index].CC_CntryCode + '">' + response[index].CC_CntryName + '</option>';
+    //            }
+    //            $('#cbCountry').html(Data);
+    //        }
+    //    });
+    //};
 
-    function GetSchools() {
+    //function GetSchools() {
 
-        var Data = "";
+    //    var Data = "";
 
-        $.ajax({
-            type: "get",
-            url: '/api/schools',
-            dataType: 'json',
-            success: function (response) {
-                Data += '<option value="000" selected>Select</option>';
-                for (let index = 0; index < response.length; index++) {
-                    Data += '<option value="' + response[index].SCL_SchoolCode + '">' + response[index].SCL_SchoolName + ' ( ' + response[index].SCL_SchoolAbb + ' )' + '</option>';
-                }
-                $('#cbSchool').html(Data);
-            }
-        });
-    };
+    //    $.ajax({
+    //        type: "get",
+    //        url: '/api/schools',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            Data += '<option value="000" selected>Select</option>';
+    //            for (let index = 0; index < response.length; index++) {
+    //                Data += '<option value="' + response[index].SCL_SchoolCode + '">' + response[index].SCL_SchoolName + ' ( ' + response[index].SCL_SchoolAbb + ' )' + '</option>';
+    //            }
+    //            $('#cbSchool').html(Data);
+    //        }
+    //    });
+    //};
 
 
     $('#cbCountry').on('change', function () {
@@ -122,7 +106,7 @@
         });
     });
 
-    $('#cbSchool').on('change', function () {
+    $('#PRG_SCLSchoolCode').on('change', function () {
 
         var SchoolId = $(this).val();
 
@@ -130,36 +114,109 @@
 
         $.ajax({
             type: "get",
-            url: '/api/schools/' + SchoolId + '/programs',
+            url: '/api/schools/' + SchoolId,
             dataType: 'json',
             success: function (response) {
+                response = JSON.parse(response);
                 Data += '<option value="000" selected>Select</option>';
                 for (let index = 0; index < response.length; index++) {
                     Data += '<option value="' + response[index].PRG_PCode + '">' + response[index].PRG_ProgramName + '</option>';
                 }
-                $('#cbProgram').html(Data);
+                $('#PRG_PCode').html(Data);
             }
         });
     });
 
-    $('#cbProgram').on('change', function () {
+    $('#PRG_PCode').on('change', function () {
 
         var ProgramId = $(this).val();
-
+        var SchoolId = $('#PRG_SCLSchoolCode').val();
         var Data = "";
 
         $.ajax({
             type: "get",
-            url: '/api/programs/' + ProgramId + '/sections',
+            url: '/api/programs/' + SchoolId + '/' + ProgramId,
             dataType: 'json',
             success: function (response) {
+                response = JSON.parse(response);
                 Data += '<option value="00" selected>Select</option>';
                 for (let index = 0; index < response.length; index++) {
                     Data += '<option value="' + response[index].PRG_SCode + '">' + response[index].PRG_SectionName + '</option>';
                 }
-                $('#cbSection').html(Data);
+                $('#PRG_SCode').html(Data);
             }
         });
+    });
+
+    $('#createMarksSheet').on('click', function () {
+
+        var SchoolId = $('#PRG_SCLSchoolCode').val();
+        var ProgramId = $('#PRG_PCode').val();
+        var SectionId = $('#PRG_SCode').val();
+        var Data = "";
+        var Sr = 1;
+        $.ajax({
+            type: "get",
+            url: '/api/teacher/students/get/' + SchoolId + '/' + ProgramId + '/' + SectionId,
+            dataType: 'json',
+            success: function (response) {
+                response = JSON.parse(response);
+                $("table tbody").empty();
+                for (let index = 0; index < response.length; index++) {
+                    Data += '<tr>' +
+                         '<td class="align-middle">' + Sr + '</td>' +
+                         '<td class="align-middle">' + response[index].STD_RollNo + '</td>' +
+                         '<td class="align-middle">' + response[index].STD_FirstName + ' ' + response[index].STD_LastName + '</td>' +
+                         '<td class="align-middle">' + response[index].PRG_ProgramName + ' - ' + response[index].PRG_SectionName + '</td>' +
+                         '<td class="align-middle">' + response[index].SCL_SchoolName + ' - ' + response[index].SCL_SchoolAbb + '</td>' +
+                         '<td class="text-center align-middle">' +
+                         '<div class="custom-control custom-checkbox">' +
+                         '<input type="number" class="form-control" name="' + response[index].STD_RollNo + 'OM" id="' + response[index].STD_RollNo + 'OM" min="0" max="' + $('#TotalMarks').val() + '" value="0" required>' +
+                         '</div></td>' +
+                     '</tr>';
+                    Sr++;
+                }
+                $("table tbody").append(Data);
+            }
+        });
+    });
+
+    $('#createAttendance').on('click', function () {
+
+        var SchoolId = $('#PRG_SCLSchoolCode').val();
+        var ProgramId = $('#PRG_PCode').val();
+        var SectionId = $('#PRG_SCode').val();
+        var Data = "";
+        var Sr = 1;
+        $.ajax({
+            type: "get",
+            url: '/api/teacher/students/get/' + SchoolId + '/' + ProgramId + '/' + SectionId,
+            dataType: 'json',
+            success: function (response) {
+                response = JSON.parse(response);
+                $("table tbody").empty();
+                for (let index = 0; index < response.length; index++) {
+                    Data += '<tr>' +
+                         '<td class="align-middle">' + Sr + '</td>' +
+                         '<td class="align-middle">' + response[index].STD_RollNo + '</td>' +
+                         '<td class="align-middle">' + response[index].STD_FirstName + ' ' + response[index].STD_LastName + '</td>' +
+                         '<td class="align-middle">' + response[index].PRG_ProgramName + ' - ' + response[index].PRG_SectionName + '</td>' +
+                         '<td class="align-middle">' + response[index].SCL_SchoolName + ' - ' + response[index].SCL_SchoolAbb + '</td>' +
+                         '<td class="text-center align-middle">' +
+                         '<div class="custom-control custom-checkbox">' +
+                         '<input type="checkbox" class="custom-control-input" id="' + response[index].STD_RollNo + 'Chk" name="' + response[index].STD_RollNo + 'Chk" checked>' +
+                         '<label class="custom-control-label" for="' + response[index].STD_RollNo + 'Chk">Present</label>' +
+                         '</div></td>' +
+                     '</tr>';
+                    Sr++;
+                }
+                $("table tbody").append(Data);
+            }
+        });
+    });
+
+    $("#resetMarksSheet").on('click', function () {
+        $("table tbody").empty();
     });
 
     $("#myInput").on("keyup", function () {
@@ -169,38 +226,5 @@
         });
     });
 
-
-    $('#inputGroupFile02').on('change', function () {
-        //get the file name
-        var fileName = $(this).val();
-        //replace the "Choose a file" label
-        $(this).next('.custom-file-label').html(fileName);
-    })
-
-    //function ShowSTDMARKS(PID, SID) {
-    //    if (PID == 0 && SID == 0) {
-    //        var ProgramID = PID;
-    //        var SectionID = SID;
-    //    } else {
-    //        var ProgramID = $(this).val();
-    //        var SectionID = $(this).val();
-    //        var TotalMarks = $(this).vabi::before {
-    //            display: inline-block;
-    //            content: "";
-    //            background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
-    //            backgroundl();
-    //        }
-    //        console.log(ProgramID + ' ' + SectionID);
-
-    //        var xhttp = new XMLHttpRequest();
-    //        xhttp.onreadystatechange = function () {
-    //            if (this.readyState == 4 && this.status == 200) {
-    //                document.getElementById("STDMARKSList").innerHTML = this.responseText;
-    //            }
-    //        };
-    //        xhttp.open("POST", "STDList.php", true);
-    //        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    //        xhttp.send("ProgramID=" + ProgramID + "&SectionID=" + SectionID + "&WorkAction=STDMarks&TotalMarks=" + TotalMarks);
-    //    }
 
 });

@@ -1,0 +1,104 @@
+﻿@using System.Data
+@{
+    ViewBag.Title = "Dashboard";
+    if ( ( Request.Cookies[ "Login" ] == null ) )
+    {
+        Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+}
+
+<div class="container mb-5 text-center">
+    @if ( ViewData[ "AlertData" ] != "" )
+    {
+        <div class="my-3">
+            <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
+                <strong>@ViewData[ "AlertHeading" ]!</strong> @ViewData[ "AlertData" ]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    }
+    @{
+        ViewData[ "AlertData" ] = "";
+        ViewData[ "AlertType" ] = "";
+        ViewData[ "AlertHeading" ] = "";
+    }
+
+    <div class="row">
+        <div class="col-lg-12 my-3">
+            <div class="card">
+                <h5 class="card-header bg-UNi text-white">@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "STD_FirstName" ].ToString()) @(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "STD_LastName" ].ToString()) (@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "STD_RollNo" ].ToString().ToUpper()))</h5>
+                <div class="card-body">
+                    <h5 class="card-title">@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "PRG_ProgramName" ].ToString()) (@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "PRG_SectionName" ].ToString()))</h5>
+                    <p class="card-text">@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "SCL_SchoolName" ].ToString()) (@(( ViewData[ "StudentData" ] as DataTable ).Rows[ 0 ][ "SCL_SchoolAbb" ].ToString()))</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-UNi">
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Subject Name</th>
+                            <th class="align-middle" scope="col">Start Time</th>
+                            <th class="align-middle" scope="col">End Time</th>
+                            <th class="align-middle" scope="col">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="myTable">
+                        @if ( ( ViewData[ "Attendance" ] as DataTable ) != null )
+                        {
+                            foreach ( DataRow dtRow in ( ViewData[ "Attendance" ] as DataTable ).Rows )
+                            {
+                                <tr>
+                                    <td class="align-middle">@dtRow[ "SA_Date" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SA_SubjectName" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SA_StartTime" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SA_EndTime" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SA_Status" ].ToString()</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="table-responsive-md">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-UNi">
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Exam Name</th>
+                            <th class="align-middle" scope="col">Subject Name</th>
+                            <th class="align-middle" scope="col">Total Marks</th>
+                            <th class="align-middle" scope="col">Obtained Marks</th>
+                            <th class="align-middle" scope="col">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="myTable">
+                        @if ( ( ViewData[ "Attendance" ] as DataTable ) != null )
+                        {
+                            foreach ( DataRow dtRow in ( ViewData[ "Attendance" ] as DataTable ).Rows )
+                            {
+                                <tr>
+                                    <td class="align-middle">@dtRow[ "SM_Date" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SM_ExamName" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SM_SubjectName" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SM_TotalMarks" ].ToString()</td>
+                                    <td class="align-middle">@dtRow[ "SM_ObtainedMarks" ].ToString()</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>

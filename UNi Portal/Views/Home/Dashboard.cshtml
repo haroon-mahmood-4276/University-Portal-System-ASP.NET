@@ -23,18 +23,18 @@
         ViewData[ "AlertType" ] = "";
         ViewData[ "AlertHeading" ] = "";
     }
-    <div>
-        <div class="card-deck">
+    <div class="">
+        <div class="card-deck my-3">
 
             <div class="card card-animation">
-                <span class="badge badge-pill badge-primary"
+                @*<span class="badge badge-pill badge-primary"
                       style="position: absolute; background-color: #224172; top: 5px; right: 5px;">
                     <a href=" #"
                        id="mySchoolBtn">
                         <i class="m-1 fas fa-plus" style="color: white" data-target="#myModel"
                            aria-hidden="true"></i>
                     </a>
-                </span>
+                </span>*@
 
                 <div class="card-body">
                     <h2 class='card-title'>@ViewData[ "SchoolsCount" ]</h2>
@@ -43,22 +43,24 @@
             </div>
 
             <div class="card card-animation">
-                <span class="badge badge-pill badge-primary "
+                @*<span class="badge badge-pill badge-primary "
                       style="position: absolute; background-color: #224172; top: 5px; right: 5px;">
                     <a href=" #"
                        id="myProgramBtn">
                         <i class="m-1 fa fa-plus" style="color: white"
                            aria-hidden="true"></i>
                     </a>
-                </span>
+                </span>*@
 
                 <div class="card-body">
                     <h2 class='card-title'>@ViewData[ "ProgramsCount" ]</h2>
                     <p class="card-text">Program(s)</p>
                 </div>
             </div>
+        </div>
+        <div class="card-deck my-3">
             <div class="card card-animation">
-                <a href="teachers" style="text-decoration: none;color: #224172">
+                <a href="@Url.Action( "Index", "Teacher" )" style="text-decoration: none;color: #224172">
                     <div class="card-body">
                         <h2 class='card-title'>@ViewData[ "TeachersCount" ]</h2>
                         <p class="card-text">Faculty Member(s)</p>
@@ -67,7 +69,7 @@
             </div>
 
             <div class="card card-animation">
-                <a href="students" style="text-decoration: none;color: #224172;">
+                <a href="@Url.Action( "Index", "Student" )" style="text-decoration: none;color: #224172;">
                     <div class="card-body">
                         <h2 class='card-title'>@ViewData[ "StudentsCount" ]</h2>
                         <p class="card-text">Student(s)</p>
@@ -84,6 +86,6 @@
             </div>
 
         </div>
-        <br>
+
     </div>
 </div>

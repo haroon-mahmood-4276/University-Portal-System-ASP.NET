@@ -317,6 +317,122 @@ namespace UNi_Portal.Controllers
             return RedirectToAction( "TCHRAttendance" );
         }
 
+
+
+        [Route( "student/login" )]
+        public ActionResult StudentLogin()
+        {
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+            ViewData[ "AlertData" ] = ReturnValue;
+            return View();
+        }
+
+
+        [Route( "student/login" )]
+        [HttpPost]
+        public ActionResult StudentLogin( LoginModel LM )
+        {
+            if ( HttpContext.Request.Cookies[ "Login" ] != null )
+            {
+                HttpContext.Response.Cookies.Remove( "Login" );
+            }
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+            LM.txtUserID = LM.txtUserID.ToLower();
+            if ( ViewData.ModelState.IsValid )
+            {
+                Query = "SELECT STD_RollNo, STD_Password, STD_FirstName, STD_LastName FROM UPS_Students WHERE (STD_RollNo = '" + LM.txtUserID + "') AND (STD_Password = '" + LM.txtPassword + "')";
+
+                ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+
+                if ( ReturnValue == "Y" )
+                {
+                    var Login = new Dictionary<string, string>()
+                    {
+                        {"ID", FormDataTable.Rows[0]["STD_RollNo"].ToString().ToUpper()},
+                        {"FirstName", FormDataTable.Rows[0]["STD_FirstName"].ToString()}, 
+                        {"LastName", FormDataTable.Rows[0]["STD_LastName"].ToString()},
+                        {"Role", "Student"}
+                    };
+
+                    var json = JsonConvert.SerializeObject( Login );
+
+                    HttpCookie LoginCookie = new HttpCookie( "Login", json );
+                    LoginCookie.Expires = DateTime.Now.AddDays( 1 );
+                    HttpContext.Response.Cookies.Add( LoginCookie );
+
+                    return Redirect( Url.Action( "TCHRMarkSheet", "Home" ) );
+                }
+                else
+                {
+                    ViewData[ "AlertData" ] = ReturnValue;
+                }
+            }
+            else
+                ViewData[ "AlertData" ] = "Email or Password is incorrect.";
+            return View();
+        }
+
+
+        [Route( "student/dashboard/{id}" )]
+        public ActionResult StudentDashboard( string id )
+        {
+            DataTable Attendance = new DataTable();
+            DataTable Marks = new DataTable();
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "danger";
+            ViewData[ "AlertHeading" ] = "Error";
+
+            Query = @"SELECT STD_RollNo, STD_FirstName, STD_LastName, 
+                    (SELECT DISTINCT PRG_ProgramName FROM UPS_Programs WHERE (PRG_PCode = STD_PRGPCode)) AS PRG_ProgramName, 
+                    (SELECT DISTINCT PRG_SectionName FROM UPS_Programs WHERE (PRG_PCode = STD_PRGPCode) AND (PRG_SCode = STD_PRGSCode)) AS PRG_SectionName, STD_CrntSemester,
+                    (SELECT DISTINCT SCL_SchoolName FROM UPS_Schools WHERE (SCL_SchoolCode = STD_SCLSchoolCode)) AS SCL_SchoolName, 
+                    (SELECT DISTINCT SCL_SchoolAbb FROM UPS_Schools WHERE (SCL_SchoolCode = STD_SCLSchoolCode)) AS SCL_SchoolAbb, STD_PKID 
+                    FROM UPS_Students WHERE STD_RollNo = '" + id + "' ORDER BY STD_RollNo";
+
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+
+            if ( ReturnValue == "Y" )
+            {
+                ViewData[ "StudentData" ] = FormDataTable;
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+
+
+            Query = @"SELECT SA_SubjectName, SA_Date, SA_StartTime, SA_EndTime, SA_Status FROM UPS_STDAttendance
+                    WHERE (SA_STDRollNo = '" + id + "') ORDER BY SA_Date";
+
+            ReturnValue = DBQueries.DBFilDTable( ref Attendance, Query );
+
+            if ( ReturnValue == "Y" )
+            {
+                ViewData[ "Attendance" ] = Attendance;
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+
+
+            Query = @"SELECT SM_ExamName, SM_SubjectName, SM_Date, SM_TotalMarks, SM_ObtainedMarks FROM UPS_STDMarks WHERE (SM_STDRollNo = '" + id + "') ORDER BY SM_Date";
+
+            ReturnValue = DBQueries.DBFilDTable( ref Marks, Query );
+
+            if ( ReturnValue == "Y" )
+            {
+                ViewData[ "Marks" ] = Marks;
+            }
+            else
+            {
+                ViewData[ "AlertData" ] = ReturnValue;
+            }
+            return View();
+        }
+
         [Route( "logout" )]
         public ActionResult Logout()
         {

@@ -41,7 +41,7 @@
         <div class="card card-animation">
             <div class="card-header bg-UNi">
                 <h4 class="modal-title float-left">Add Teacher Record</h4>
-                <a href="@Url.Action( "Index", "Teacher" )" class="btn btn-danger float-right">Back to Student List</a>
+                <a href="@Url.Action( "Index", "Teacher" )" class="btn btn-danger float-right">Back to Teachers List</a>
             </div>
 
             @using ( Html.BeginForm( "Create", "Teacher", FormMethod.Post ) )
@@ -101,32 +101,32 @@
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.TCHR_CCCntryCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.TCHR_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbCountries"], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_CCCntryCode ) } )
+                                    @Html.DropDownListFor( model => model.TCHR_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData[ "cbCountries" ], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.TCHR_CCCntryCode ), @id = "STD_CCCntryCode" } )
                                     @Html.ValidationMessageFor( model => model.TCHR_CCCntryCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.TCHR_CCCityCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.TCHR_CCCityCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.TCHR_CCCityCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "STD_CCCityCode" } )
                                     @Html.ValidationMessageFor( model => model.TCHR_CCCityCode, "", new { @class = "text-danger" } )
                                 </div>
 
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.TCHR_SCLSchoolCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.TCHR_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbSchools"], "Value", "Text", "0" ), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.TCHR_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData[ "cbSchools" ], "Value", "Text", "0" ), "Select", new { @class = "form-control", @id = "PRG_SCLSchoolCode" } )
                                     @Html.ValidationMessageFor( model => model.TCHR_SCLSchoolCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.TCHR_PRGPCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.TCHR_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.TCHR_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "PRG_PCode" } )
                                     @Html.ValidationMessageFor( model => model.TCHR_PRGPCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.TCHR_PRGSCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.TCHR_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.TCHR_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "PRG_SCode" } )
                                     @Html.ValidationMessageFor( model => model.TCHR_PRGSCode, "", new { @class = "text-danger" } )
                                 </div>
 

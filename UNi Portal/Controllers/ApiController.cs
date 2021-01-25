@@ -15,12 +15,11 @@ namespace UNi_Portal.Controllers
         string Query = "";
         DataTable FormDataTable = new DataTable();
 
-
-        [Route( "api/schools/{id}" )]
-        public JsonResult ProgramList( string id )
+        [Route( "api/countries/{id}" )]
+        public JsonResult CountryList( string id )
         {
-             Query = @"SELECT DISTINCT PRG_PCode, PRG_ProgramName FROM UPS_Programs WHERE (PRG_SCLSchoolCode = '" + id + "')";
-             ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            Query = @"SELECT CC_CityCode, CC_CityName FROM UPS_CityCountry WHERE (CC_CntryCode = '" + id + "')";
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
             if ( ReturnValue == "Y" )
             {
                 ReturnValue = JsonConvert.SerializeObject( FormDataTable );
@@ -29,8 +28,23 @@ namespace UNi_Portal.Controllers
             return Json( "Data Not Found", JsonRequestBehavior.AllowGet );
         }
 
+
+        [Route( "api/schools/{id}" )]
+        public JsonResult ProgramList( string id )
+        {
+            Query = @"SELECT DISTINCT PRG_PCode, PRG_ProgramName FROM UPS_Programs WHERE (PRG_SCLSchoolCode = '" + id + "')";
+            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+            if ( ReturnValue == "Y" )
+            {
+                ReturnValue = JsonConvert.SerializeObject( FormDataTable );
+                return Json( ReturnValue, JsonRequestBehavior.AllowGet );
+            }
+            return Json( "Data Not Found", JsonRequestBehavior.AllowGet );
+        }
+
+
         [Route( "api/programs/{schoolid}/{id}" )]
-        public JsonResult ProgramList(string schoolid, string id )
+        public JsonResult ProgramList( string schoolid, string id )
         {
             DataTable FormDataTable = new DataTable();
             string Query = @"SELECT DISTINCT PRG_SCode, PRG_SectionName FROM UPS_Programs WHERE (PRG_SCLSchoolCode = '" + schoolid + "' AND PRG_PCode = '" + id + "')";
@@ -45,7 +59,7 @@ namespace UNi_Portal.Controllers
 
 
         [Route( "api/teacher/students/get/{schoolid}/{programid}/{id}" )]
-        public JsonResult STDList( string schoolid,string programid, string id )
+        public JsonResult STDList( string schoolid, string programid, string id )
         {
             ViewData[ "AlertData" ] = "";
             ViewData[ "AlertType" ] = "danger";

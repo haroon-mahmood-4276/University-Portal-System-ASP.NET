@@ -22,22 +22,37 @@
             <ul class="navbar-nav ml-auto">
                 @if ( Request.Cookies[ "Login" ] != null && Login.Role == "Admin" )
                 {
-                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/admin/dashboard" ? "active" : "")">
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == Url.Action( "Dashboard", "Home" ) ? "active" : "")">
                         <a class="nav-link" href="@Url.Action( "Dashboard", "Home" )">
                             <span style="color: #224172;">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/student" ? "active" : "")">
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == Url.Action( "Index", "Student" ) ? "active" : "")">
                         <a class="nav-link" href="@Url.Action( "Index", "Student" )">
                             <span style="color: #224172;">Students List</span>
                         </a>
                     </li>
-                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == "/teacher" ? "active" : "")">
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == Url.Action( "Index", "Teacher" ) ? "active" : "")">
                         <a class="nav-link" href="@Url.Action( "Index", "Teacher" )">
                             <span style="color: #224172;">Teachers List</span>
                         </a>
                     </li>
                 }
+                else if ( Request.Cookies[ "Login" ] != null && Login.Role == "Teacher" )
+                {
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == Url.Action( "TCHRMarkSheet", "Home" ) ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action( "TCHRAttendance", "Home" )">
+                            <span style="color: #224172;">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1 @(Request.Url.AbsolutePath == @Url.Action( "TCHRMarkSheet", "Home" ) ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action( "Index", "Student" )">
+                            <span style="color: #224172;">Students List</span>
+                        </a>
+                    </li>
+                }
+                else if ( Request.Cookies[ "Login" ] != null && Login.Role == "Student" )
+                { }
                 else
                 {
                     <li class="nav-item">

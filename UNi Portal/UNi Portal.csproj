@@ -317,6 +317,8 @@
     <Content Include="Views\Home\TeacherLogin.cshtml" />
     <Content Include="Views\Home\TCHRMarkSheet.cshtml" />
     <Content Include="Views\Home\TCHRAttendance.cshtml" />
+    <Content Include="Views\Home\StudentDashboard.cshtml" />
+    <Content Include="Views\Home\StudentLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -336,9 +338,7 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Api\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -6,6 +6,16 @@
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
     }
+
+    List<SelectListItem> SemesterList = new List<SelectListItem>();
+    SemesterList.Add( new SelectListItem { Text = "1", Value = "1" } );
+    SemesterList.Add( new SelectListItem { Text = "2", Value = "2" } );
+    SemesterList.Add( new SelectListItem { Text = "3", Value = "3" } );
+    SemesterList.Add( new SelectListItem { Text = "4", Value = "4" } );
+    SemesterList.Add( new SelectListItem { Text = "5", Value = "5" } );
+    SemesterList.Add( new SelectListItem { Text = "6", Value = "6" } );
+    SemesterList.Add( new SelectListItem { Text = "7", Value = "7" } );
+    SemesterList.Add( new SelectListItem { Text = "8", Value = "8" } );
 }
 
 <div>
@@ -22,11 +32,11 @@
             </div>
         }
 
-        @if ( ViewData["AlertData"] != "" )
+        @if ( ViewData[ "AlertData" ] != "" )
         {
             <div class="my-3">
                 <div class="alert alert-@ViewData["AlertType"] alert-dismissible fade show" role="alert">
-                    <strong>@ViewData["AlertHeading"]!</strong> @ViewData["AlertData"]
+                    <strong>@ViewData[ "AlertHeading" ]!</strong> @ViewData[ "AlertData" ]
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -34,14 +44,14 @@
             </div>
         }
         @{
-            ViewData["AlertData"] = "";
-            ViewData["AlertType"] = "";
-            ViewData["AlertHeading"] = "";
+            ViewData[ "AlertData" ] = "";
+            ViewData[ "AlertType" ] = "";
+            ViewData[ "AlertHeading" ] = "";
         }
         <div class="card card-animation">
             <div class="card-header bg-UNi">
                 <h4 class="modal-title float-left">Add Student Record</h4>
-                <a href="@Url.Action( "Index", "Student" )" class="btn btn-danger float-right">Back to Student List</a>
+                <a href="@Url.Action( "Index", "Student" )" class="btn btn-danger float-right">Back to Students List</a>
             </div>
 
             @using ( Html.BeginForm( "Create", "Student", FormMethod.Post ) )
@@ -101,7 +111,7 @@
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.STD_CCCntryCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.STD_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbCountries"], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_CCCntryCode ) } )
+                                    @Html.DropDownListFor( model => model.STD_CCCntryCode, new SelectList( ( System.Collections.IEnumerable ) ViewData[ "cbCountries" ], "Value", "Text", "0" ), "Select", new { @class = "form-control", @placeholder = @Html.DisplayNameFor( model => model.STD_CCCntryCode ) } )
                                     @Html.ValidationMessageFor( model => model.STD_CCCntryCode, "", new { @class = "text-danger" } )
                                 </div>
 
@@ -114,25 +124,25 @@
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.STD_SCLSchoolCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.STD_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData["cbSchools"], "Value", "Text", "0" ), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.STD_SCLSchoolCode, new SelectList( ( System.Collections.IEnumerable ) ViewData[ "cbSchools" ], "Value", "Text", "0" ), "Select", new { @class = "form-control", @id = "PRG_SCLSchoolCode" } )
                                     @Html.ValidationMessageFor( model => model.STD_SCLSchoolCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.STD_PRGPCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.STD_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.STD_PRGPCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "PRG_PCode" } )
                                     @Html.ValidationMessageFor( model => model.STD_PRGPCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-6 mb-3 form-group">
                                     @Html.LabelFor( model => model.STD_PRGSCode, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.STD_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.STD_PRGSCode, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control", @id = "PRG_SCode" } )
                                     @Html.ValidationMessageFor( model => model.STD_PRGSCode, "", new { @class = "text-danger" } )
                                 </div>
 
                                 <div class="col-md-12 mb-3 form-group">
                                     @Html.LabelFor( model => model.STD_CrntSemester, new { @class = "control-label" } )
-                                    @Html.DropDownListFor( model => model.STD_CrntSemester, Enumerable.Empty<SelectListItem>(), "Select", new { @class = "form-control" } )
+                                    @Html.DropDownListFor( model => model.STD_CrntSemester, SemesterList, "Select", new { @class = "form-control" } )
                                     @Html.ValidationMessageFor( model => model.STD_CrntSemester, "", new { @class = "text-danger" } )
                                 </div>
 

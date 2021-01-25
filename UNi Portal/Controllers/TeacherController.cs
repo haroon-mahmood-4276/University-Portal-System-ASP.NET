@@ -203,8 +203,8 @@ namespace UNi_Portal.Controllers
         }
 
 
-        [Route( "teacher/{id}" )]
-        [HttpPatch]
+        [Route( "teacher/{id}/edit" )]
+        [HttpPost]
         public ActionResult Edit( int id, TeacherModel Model )
         {
             try
@@ -216,7 +216,7 @@ namespace UNi_Portal.Controllers
                         "TCHR_PhoneNo ='" + Model.TCHR_PhoneNo + "', TCHR_Email ='" + Model.TCHR_Email + "', TCHR_Gender ='" + Model.TCHR_Gender + "', " +
                         "TCHR_CCCityCode ='" + Model.TCHR_CCCityCode + "', TCHR_CCCntryCode ='" + Model.TCHR_CCCntryCode + "'";
 
-                ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
+                ReturnValue = DBQueries.DB_ExecuteNonQuery( Query );
                 if ( ReturnValue == "Y" )
                 {
                     ViewData["AlertType"] = "success";

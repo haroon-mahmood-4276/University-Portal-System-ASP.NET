@@ -56,13 +56,8 @@
                             <td class="align-middle">@dtRow[ "TCHR_SchoolName" ].ToString() ( @dtRow[ "TCHR_SchoolAbb" ].ToString() )</td>
                             <td class="align-middle">@dtRow[ "TCHR_Post" ].ToString()</td>
                             <td class="align-middle">
-                                <a href="@Url.Action( "Edit", "Student", new { id = @dtRow["TCHR_PKID"].ToString() } )" class="btn btn-outline-UNi float-left"><i class="fas fa-i-cursor"></i></a>
-                                @using ( Html.BeginForm( "Delete", "Student", FormMethod.Post ) )
-                                {
-                                    @Html.HttpMethodOverride( HttpVerbs.Delete )
-                                    <input type="hidden" name="PKID" value="@dtRow["TCHR_PKID"].ToString()" />
-                                    <button type="submit" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
-                                }
+                                <a href="@Url.Action( "Edit", "Teacher", new { id = @dtRow["TCHR_PKID"].ToString() } )" class="btn btn-outline-UNi float-left"><i class="fas fa-i-cursor"></i></a>
+                                <a href="@Url.Action( "Delete", "Teacher", new { id = @dtRow[ "TCHR_PKID" ].ToString() })" class="btn btn-outline-danger float-right"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     }

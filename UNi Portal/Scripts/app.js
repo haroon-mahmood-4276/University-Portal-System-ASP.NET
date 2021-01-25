@@ -1,92 +1,7 @@
 ﻿$(document).ready(function () {
 
-    //$("#cbProgram").ready(function () {
-    //    GetPrograms();
-    //});
 
-    //$("#cbExamType").ready(function () {
-    //    GetExams();
-    //});
-
-    //function somemethod() {
-    //    console.log("here");
-    //}
-
-    //function GetPrograms() {
-
-    //    var Data = "";
-
-    //    $.ajax({
-    //        type: "get",
-    //        url: '/api/programs',
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            Data += '<option value="000" selected>Select</option>';
-    //            for (let index = 0; index < response.length; index++) {
-    //                Data += '<option value="' + response[index].PRG_PCode + '">' + response[index].PRG_ProgramName + '</option>';
-    //            }
-    //            $('#cbProgram').html(Data);
-    //        }
-    //    });
-    //};
-
-    //function GetExams() {
-
-    //    var Data = "";
-
-    //    $.ajax({
-    //        type: "get",
-    //        url: '/api/exams',
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            Data += '<option value="00" selected>Select</option>';
-    //            for (let index = 0; index < response.length; index++) {
-    //                Data += '<option value="' + response[index].EXAM_ID + '">' + response[index].EXAM_Name + '</option>';
-    //            }
-    //            $('#cbExamType').html(Data);
-    //        }
-    //    });
-    //};
-
-
-    //function GetCountries() {
-
-    //    var Data = "";
-
-    //    $.ajax({
-    //        type: "get",
-    //        url: '/api/countries',
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            Data += '<option value="000" selected>Select</option>';
-    //            for (let index = 0; index < response.length; index++) {
-    //                Data += '<option value="' + response[index].CC_CntryCode + '">' + response[index].CC_CntryName + '</option>';
-    //            }
-    //            $('#cbCountry').html(Data);
-    //        }
-    //    });
-    //};
-
-    //function GetSchools() {
-
-    //    var Data = "";
-
-    //    $.ajax({
-    //        type: "get",
-    //        url: '/api/schools',
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            Data += '<option value="000" selected>Select</option>';
-    //            for (let index = 0; index < response.length; index++) {
-    //                Data += '<option value="' + response[index].SCL_SchoolCode + '">' + response[index].SCL_SchoolName + ' ( ' + response[index].SCL_SchoolAbb + ' )' + '</option>';
-    //            }
-    //            $('#cbSchool').html(Data);
-    //        }
-    //    });
-    //};
-
-
-    $('#cbCountry').on('change', function () {
+    $('#STD_CCCntryCode').on('change', function () {
 
         var CountryId = $(this).val();
 
@@ -94,14 +9,15 @@
 
         $.ajax({
             type: "get",
-            url: '/api/countries/' + CountryId + '/cities',
+            url: '/api/countries/' + CountryId,
             dataType: 'json',
             success: function (response) {
-                Data += '<option value="000" selected>Select</option>';
+                response = JSON.parse(response);
+                Data += '<option value selected>Select</option>';
                 for (let index = 0; index < response.length; index++) {
                     Data += '<option value="' + response[index].CC_CityCode + '">' + response[index].CC_CityName + '</option>';
                 }
-                $('#cbCity').html(Data);
+                $('#STD_CCCityCode').html(Data);
             }
         });
     });
@@ -118,7 +34,7 @@
             dataType: 'json',
             success: function (response) {
                 response = JSON.parse(response);
-                Data += '<option value="000" selected>Select</option>';
+                Data += '<option value selected>Select</option>';
                 for (let index = 0; index < response.length; index++) {
                     Data += '<option value="' + response[index].PRG_PCode + '">' + response[index].PRG_ProgramName + '</option>';
                 }
@@ -139,7 +55,7 @@
             dataType: 'json',
             success: function (response) {
                 response = JSON.parse(response);
-                Data += '<option value="00" selected>Select</option>';
+                Data += '<option value selected>Select</option>';
                 for (let index = 0; index < response.length; index++) {
                     Data += '<option value="' + response[index].PRG_SCode + '">' + response[index].PRG_SectionName + '</option>';
                 }

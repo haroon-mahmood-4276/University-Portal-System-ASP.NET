@@ -1,10 +1,19 @@
 ﻿@model UNi_Portal.Models.StudentModel
 @using System.Data;
 @{
-    ViewBag.Title = "Create Student Record";
+    ViewBag.Title = "Edit Student Record";
     if ( ( Request.Cookies[ "Login" ] == null ) )
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Admin" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
     }
 
     List<SelectListItem> SemesterList = new List<SelectListItem>();

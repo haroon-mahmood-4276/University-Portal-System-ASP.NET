@@ -41,26 +41,6 @@ namespace UNi_Portal.Controllers
         }
 
 
-        [Route( "teacher/{id}" )]
-        public ActionResult Details( int id )
-        {
-            ViewData["AlertData"] = "";
-            ViewData["AlertType"] = "danger";
-            ViewData["AlertHeading"] = "Error";
-
-            Query = @"SELECT * FROM UPS_Teachers WHERE (TCHR_PKID = '" + id + "')";
-            ReturnValue = DBQueries.DBFilDTable( ref FormDataTable, Query );
-            if ( ReturnValue == "Y" )
-            {
-                ViewData["TeacherData"] = FormDataTable;
-            }
-            else
-                ViewData["AlertData"] = ReturnValue;
-
-            return View();
-        }
-
-
         [Route( "teacher/create" )]
         public ActionResult Create()
         {

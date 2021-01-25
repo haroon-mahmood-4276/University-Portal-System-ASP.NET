@@ -1,8 +1,18 @@
 ﻿@{
     ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Create Student Record";
     if ( ( Request.Cookies[ "Login" ] == null ) )
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Admin" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
     }
 }
 

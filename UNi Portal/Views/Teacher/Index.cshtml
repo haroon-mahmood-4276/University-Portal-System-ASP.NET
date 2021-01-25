@@ -1,11 +1,21 @@
 ﻿@using System.Data;
 @{
     ViewBag.Title = "Teachers";
+
     if ( ( Request.Cookies[ "Login" ] == null ) )
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
     }
-    int SrNo = 1;
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Admin" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
+    }
+
 }
 
 <div class="container my-4 text-center">

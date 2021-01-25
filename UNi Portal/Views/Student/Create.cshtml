@@ -6,6 +6,15 @@
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
     }
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Admin" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
+    }
 
     List<SelectListItem> SemesterList = new List<SelectListItem>();
     SemesterList.Add( new SelectListItem { Text = "1", Value = "1" } );

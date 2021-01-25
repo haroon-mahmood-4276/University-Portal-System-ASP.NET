@@ -1,9 +1,19 @@
 ﻿@using System.Data;
 @{
     ViewBag.Title = "Students";
+
     if ( ( Request.Cookies[ "Login" ] == null ) )
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
+    }
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Admin" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
     }
     int SrNo = 1;
 }

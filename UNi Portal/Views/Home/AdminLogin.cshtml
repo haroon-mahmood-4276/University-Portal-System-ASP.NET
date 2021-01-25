@@ -44,7 +44,7 @@
             ViewData[ "AlertHeading" ] = "";
         }
 
-        @using ( Html.BeginForm( "AdminLogin", "Home" ) )
+        @using ( Html.BeginForm( "AdminLogin", "Home", FormMethod.Post ) )
         {
             <div class="form-group">
                 @Html.LabelFor( model => model.txtUserID, new { @class = "control-label" } )

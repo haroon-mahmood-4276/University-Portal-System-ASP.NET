@@ -40,6 +40,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr class="bg-UNi">
+                            <th class="align-middle" colspan="5" scope="col">Attendance Sheet</th>
+                        </tr>
+                        <tr class="bg-UNi">
                             <th class="align-middle" scope="col">Date</th>
                             <th class="align-middle" scope="col">Subject Name</th>
                             <th class="align-middle" scope="col">Start Time</th>
@@ -71,19 +74,21 @@
                 <table class="table table-hover">
                     <thead>
                         <tr class="bg-UNi">
+                            <th class="align-middle" colspan="5" scope="col">Marks Sheet</th>
+                        </tr>
+                        <tr class="bg-UNi">
                             <th class="align-middle" scope="col">Date</th>
                             <th class="align-middle" scope="col">Exam Name</th>
                             <th class="align-middle" scope="col">Subject Name</th>
                             <th class="align-middle" scope="col">Total Marks</th>
                             <th class="align-middle" scope="col">Obtained Marks</th>
-                            <th class="align-middle" scope="col">Status</th>
                         </tr>
                     </thead>
 
                     <tbody id="myTable">
-                        @if ( ( ViewData[ "Attendance" ] as DataTable ) != null )
+                        @if ( ( ViewData[ "Marks" ] as DataTable ) != null )
                         {
-                            foreach ( DataRow dtRow in ( ViewData[ "Attendance" ] as DataTable ).Rows )
+                            foreach ( DataRow dtRow in ( ViewData[ "Marks" ] as DataTable ).Rows )
                             {
                                 <tr>
                                     <td class="align-middle">@dtRow[ "SM_Date" ].ToString()</td>

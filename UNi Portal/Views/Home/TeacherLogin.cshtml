@@ -1,6 +1,15 @@
 ﻿@model UNi_Portal.Models.LoginModel
 @{
     ViewBag.Title = "Teacher Login";
+    if ( ( Request.Cookies[ "Login" ] != null ) )
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role == "Teacher" )
+        {
+            Response.Redirect( Url.Action( "TCHRMarkSheet", "Home" ) );
+        }
+    }
 }
 
 <div>
@@ -35,7 +44,7 @@
             ViewData[ "AlertHeading" ] = "";
         }
 
-        @using ( Html.BeginForm( "AdminLogin", "Home" ) )
+        @using ( Html.BeginForm( "TeacherLogin", "Home", FormMethod.Post ) )
         {
             <div class="form-group">
                 @Html.LabelFor( model => model.txtUserID, new { @class = "control-label" } )

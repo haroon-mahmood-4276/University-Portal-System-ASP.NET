@@ -155,8 +155,6 @@ namespace UNi_Portal.Controllers
             return View();
         }
 
-
-
         [Route( "teacher/login" )]
         [HttpPost]
         public ActionResult TeacherLogin( LoginModel LM )
@@ -362,7 +360,7 @@ namespace UNi_Portal.Controllers
                     LoginCookie.Expires = DateTime.Now.AddDays( 1 );
                     HttpContext.Response.Cookies.Add( LoginCookie );
 
-                    return Redirect( Url.Action( "TCHRMarkSheet", "Home" ) );
+                    return Redirect( Url.Action( "StudentDashboard", "Home", new { id = FormDataTable.Rows[ 0 ][ "STD_RollNo" ].ToString() } ) );
                 }
                 else
                 {

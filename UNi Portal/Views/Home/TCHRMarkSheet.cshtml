@@ -6,6 +6,15 @@
     {
         Response.Redirect( Url.Action( "Index", "Home" ) );
     }
+    else
+    {
+        dynamic Login = "";
+        Login = Newtonsoft.Json.Linq.JObject.Parse( Request.Cookies[ "Login" ].Value );
+        if ( Login.Role != "Teacher" )
+        {
+            Response.Redirect( Url.Action( "Logout", "Home" ) );
+        }
+    }
 
     List<SelectListItem> ExamTypes = new List<SelectListItem>();
     ExamTypes.Add( new SelectListItem { Text = "Quiz", Value = "Quiz" } );
